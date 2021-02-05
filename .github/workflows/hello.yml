@@ -13,3 +13,9 @@ jobs:
       - name: Print hello world
         run: |
           echo Hello World!
+      - name: Current datetime
+        run: |
+          date -u
+      - name: Show folder contents
+        run: |
+          ls -l
