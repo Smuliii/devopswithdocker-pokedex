@@ -33,3 +33,5 @@ jobs:
           heroku_app_name: 'fullstackopen-pokedex-cicd'
           heroku_email: 'smulitus@gmail.com'
           remote_branch: master
+          healthcheck: 'https://fullstackopen-pokedex-cicd.herokuapp.com/health'
+          checkstring: 'ok'
