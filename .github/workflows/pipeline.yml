@@ -35,3 +35,4 @@ jobs:
           remote_branch: master
           healthcheck: 'https://fullstackopen-pokedex-cicd.herokuapp.com/health'
           checkstring: 'ok'
+          rollbackonhealthcheckfailed: true
