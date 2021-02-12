@@ -14,6 +14,8 @@ on:
 jobs:
   simple_deployment_pipeline:
     runs-on: ubuntu-20.04
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -22,18 +24,23 @@ jobs:
       - name: npm install
         run: npm install
       - name: lint
+        id: lint
         run: npm run eslint
       - name: build
+        id: build
         run: npm run build
       - name: test
+        id: unit-tests
         run: npm test
       - name: e2e tests
+        id: e2e-tests
         uses: cypress-io/github-action@v2
         with:
           command: npm run test:e2e
           start: npm run start-prod
           wait-on: http://localhost:5000
       - name: deploy
+        id: deploy
         if: ${{ github.event_name == 'push' && !contains(github.event.commits[0].message, '#skip') }}
         uses: akhileshns/heroku-deploy@v3.10.9
         with:
@@ -51,3 +58,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
+      - name: success notifications
+        uses: act10ns/slack@v1.2.2
+        if: success()
+        with:
+          status: ${{ job.status }}
+      - name: failure notification
+        uses: act10ns/slack@v1.2.2
+        if: failure()
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
