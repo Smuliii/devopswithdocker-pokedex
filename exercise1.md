@@ -1,3 +1,5 @@
--   Some common steps in a CI setup include linting, testing, and building. What are the specific tools for taking care of these steps in the ecosystem of the language you picked? You can search for the answers by google.
--   What alternatives are there to set up the CI besides Jenkins and GitHub Actions? Again, you can ask google!
--   Would this setup be better in a self-hosted or a cloud-based environment? Why? What information would you need to make that decision?
+In short, the basic CI/CD process mainly includes the following steps: linting, testing, building and deploying an app.
+
+Linting might not be the most important part of the process, but it's the one that keeps us sane especially when there are more than one person developing the same project. Pylint is probably the most known tool for keeping code clean from syntax errors, weird indentation and other simple mistakes in Python. Testing an app can include both unit and integration tests and those both can be done for example with Pytest framework.
+
+Jenkins is a popular choice for CI tooling, but can be quite complex at first. As an alternative, Travis CI is a more simpler choice if you're just starting out and don't care much about customization. You can run the whole process either in your own machine/server or you can use a cloud-based solution. Usually the cloud-based ones are easier to setup and maintain, but can limit you in some ways when you need a more advanced pipeline. Also they might cost you more in the long run. There is also always the security aspect, which might make the self-hosted setup more suitable for you. The nice thing about Travis is that it comes with free plan by default so there's one thing less to worry about.
